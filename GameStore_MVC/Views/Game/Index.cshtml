@@ -1,0 +1,62 @@
+﻿@using GameStore_MVC.data
+@model List<Game>
+<h1 style="color:darkorange">Game Management</h1>
+<a class="btn btn-outline-primary" asp-controller="Game" asp-action="Add">Add Game</a>
+
+
+@if (TempData["Durum"] != null)
+{
+    <div class="list-group">
+
+        <a class="list-group-item list-group-item-action list-group-item-info">@TempData["Durum"]</a>
+
+    </div>
+}
+
+
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+
+            <th>
+                Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Platform
+            </th>
+            <th>
+                Barcode Number
+            </th>
+            <th>
+                One Platform
+            </th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @*Buraya sırasıyla bütün ürünler listenecek*@
+        @{
+
+            foreach (var game in Model)
+            {
+                <tr>
+                    <td>@game.Name</td>
+                    <td>@game.Price</td>
+                    <td>@game.Platform</td>
+                    <td>@game.BarcodeNo</td>
+                    <td>@(game.onePlatform? "Yes" : "No")</td>
+
+                    <td><a class="btn btn-warning" asp-controller="Game" asp-action="Update" asp-route-id="@game.Id">Update</a> </td>
+                    <td><a class="btn btn-danger" asp-controller="Game" asp-action="Delete" asp-route-id="@game.Id">Delete</a> </td>
+                </tr>
+            }
+
+        }
+    </tbody>
+
+</table>

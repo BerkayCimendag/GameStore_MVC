@@ -1,0 +1,35 @@
+﻿@model Game
+
+<div class="card-header">
+    <h2>GAME ADDING SYSTEM</h2>
+    @if (TempData["Durum"] != null)
+    {
+        <div class="list-group">
+
+            <a class="list-group-item list-group-item-action list-group-item-danger">@TempData["Durum"]</a>
+
+        </div>
+    }
+</div>
+<div class="card-body">
+    <form asp-controller="Game" asp-action="Add" method="post">
+        <div class="form-group">
+            <label asp-for="Name">Game Name:</label>
+            <input asp-for="Name" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Price">Game Price:</label>
+            <input asp-for="Price" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Platform">Game Platform:</label>
+            <input asp-for="Platform" type="text" class="form-control" />
+        </div>
+       
+        <div class="form-group">
+            <label asp-for="onePlatform">Is It Only Available In One Platform?</label>
+            <input asp-for="onePlatform" type="checkbox" />
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>

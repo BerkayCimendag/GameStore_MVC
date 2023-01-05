@@ -1,0 +1,41 @@
+﻿@model Game
+<div class="card-header">
+    <h2 style="color:darkkhaki">GAME UPDATE</h2>
+    @if (Model != null)
+    {
+        <h6>Updating Game: @Model.Name / Price: @Model.Price / Game Platform : @Model.Platform / You cannot delete BarcodeNo : @Model.BarcodeNo / Is it only one platform Game? @(Model.onePlatform?"Yes":"No")</h6>
+    }
+    
+    @if (TempData["Durum"] != null)
+    {
+        <div class="list-group">
+            <a class="list-group-item list-group-item-action list-group-item-danger">@TempData["Durum"]</a>
+        </div>
+    }
+</div>
+<div class="card-body">
+    <form asp-controller="Game" asp-action="Update" method="post">
+        <div class="form-group">
+            <label asp-for="Name">ÜRÜN ADI:</label>
+            <input asp-for="Name" type="text" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Price">ÜRÜN FİYATI:</label>
+            <input asp-for="Price" type="text" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Platform">Game Platform:</label>
+            <input asp-for="Platform" type="text" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="onePlatform">Is It Only Available In One Platform?</label>
+            <input asp-for="onePlatform" type="checkbox" />
+        </div>
+        <div class="form-group">
+            <input asp-for="BarcodeNo" type="hidden" value="@Model.BarcodeNo"  class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
