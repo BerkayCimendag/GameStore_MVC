@@ -27,16 +27,13 @@ namespace GameStore_MVC.Controllers
         {
             try
             {
-                Random rnd = new Random();
-                string first = rnd.Next(100000, 999999).ToString();
-                string second = rnd.Next(1000000, 9999999).ToString();
-                game.BarcodeNo = Convert.ToInt64(first + second);
+                Random rnd;
+                string first, second;
+                RandomBarcode(game, out rnd, out first, out second);
 
                 while (_db.Games.ToList().Contains(_db.Games.FirstOrDefault(x => x.BarcodeNo == game.BarcodeNo)))
                 {
-                     first = rnd.Next(100000, 999999).ToString();
-                     second = rnd.Next(1000000, 9999999).ToString();
-                    game.BarcodeNo = Convert.ToInt64(first + second);
+                    RandomBarcode(game, out rnd, out first, out second);
                 }
 
                 if (game.Price <= 0)
@@ -62,6 +59,15 @@ namespace GameStore_MVC.Controllers
             TempData["Durum"] = "Successfull!";
             return RedirectToAction("Index");
         }
+
+        private static void RandomBarcode(Game game, out Random rnd, out string first, out string second)
+        {
+            rnd = new Random();
+            first = rnd.Next(100000, 999999).ToString();
+            second = rnd.Next(1000000, 9999999).ToString();
+            game.BarcodeNo = Convert.ToInt64(first + second);
+        }
+
         public IActionResult Update(int Id)
         {
             Game updatingGame = _db.Games.Find(Id);
